@@ -1,5 +1,6 @@
 package net.afterday.compas;
 
+
 import android.app.*;
 import android.content.Context;
 import android.content.Intent;
@@ -7,12 +8,12 @@ import android.graphics.Color;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.widget.RemoteViews;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
 
 import net.afterday.compas.core.Game;
 import net.afterday.compas.core.gameState.Frame;
@@ -63,6 +64,7 @@ public class LocalMainService extends Service
     private Serializer serializer;
     private Logger logger;
     private DataBase dataBase;
+    private String ChannelID = "CHANNELID";
 
     @Override
     public void onCreate()
@@ -116,24 +118,26 @@ public class LocalMainService extends Service
     }
 
     private Notification getNotification() {
-        Intent resultIntent = new Intent(this, MainActivity.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addNextIntentWithParentStack(resultIntent);
-        PendingIntent pIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-        RemoteViews collapsed = new RemoteViews(getPackageName(), R.layout.notification);
-        Intent intentAction = new Intent(this, ActionsReceiver.class);
-        intentAction.putExtra("ServiceControlls","STOP");
-        PendingIntent stopServiceIntent = PendingIntent.getBroadcast(this, 1, intentAction, PendingIntent.FLAG_UPDATE_CURRENT);
-        collapsed.setOnClickPendingIntent(R.id.open, pIntent);
-        collapsed.setOnClickPendingIntent(R.id.stop, stopServiceIntent);
+//        Intent resultIntent = new Intent(this, MainActivity.class);
+//        PendingIntent pIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_IMMUTABLE);
+//        RemoteViews collapsed = new RemoteViews(getPackageName(), R.layout.notification);
+//        Intent intentAction = new Intent(this, ActionsReceiver.class);
+//        intentAction.putExtra("ServiceControlls","STOP");
+//        PendingIntent stopServiceIntent = PendingIntent.getBroadcast(this, 1, intentAction, PendingIntent.FLAG_UPDATE_CURRENT);
+//        collapsed.setOnClickPendingIntent(R.id.open, pIntent);
+//        collapsed.setOnClickPendingIntent(R.id.stop, stopServiceIntent);
 
-        Notification n = new NotificationCompat.Builder(this)
-                .setContent(collapsed)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                //.setStyle(new android.support.v7.app.NotificationCompat.DecoratedCustomViewStyle())
+        Notification n = new NotificationCompat.Builder(this, ChannelID)
+//                .addAction(R.drawable.close, "Выключить трекер", closeServes)
+                .setContentTitle("efwefwe")
+                .setContentText("fewegwrhwehwer`")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//                .setContent(collapsed)
+//                .setSmallIcon(R.mipmap.ic_launcher)
                 .build();
         return n;
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private void startForegroundForSdk25(){
         String NOTIFICATION_CHANNEL_ID = "net.afterday.compas";
@@ -146,23 +150,24 @@ public class LocalMainService extends Service
         manager.createNotificationChannel(chan);
 
         Intent resultIntent = new Intent(this, MainActivity.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addNextIntentWithParentStack(resultIntent);
-        PendingIntent pIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        PendingIntent pIntent = PendingIntent.getActivity(this,0, resultIntent, PendingIntent.FLAG_IMMUTABLE);
         RemoteViews collapsed = new RemoteViews(getPackageName(), R.layout.notification);
         Intent intentAction = new Intent(this, ActionsReceiver.class);
         intentAction.putExtra("ServiceControlls","STOP");
-        PendingIntent stopServiceIntent = PendingIntent.getBroadcast(this, 1, intentAction, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent stopServiceIntent = PendingIntent.getBroadcast(this, 1, intentAction, PendingIntent.FLAG_IMMUTABLE);
         collapsed.setOnClickPendingIntent(R.id.open, pIntent);
         collapsed.setOnClickPendingIntent(R.id.stop, stopServiceIntent);
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
-        Notification notification = notificationBuilder.setOngoing(true)
-                .setContent(collapsed)
-                .setSmallIcon(R.mipmap.ic_notification)
-                .setPriority(NotificationManager.IMPORTANCE_MIN)
-                .setCategory(Notification.CATEGORY_SERVICE)
-                .build();
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
+//        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
+        Notification notification = getNotification();
+//                notificationBuilder.setOngoing(true)
+//                .setContent(collapsed)
+//                .setSmallIcon(R.mipmap.ic_notification)
+//                .setPriority(NotificationManager.IMPORTANCE_MIN)
+//                .setCategory(Notification.CATEGORY_SERVICE)
+//                .build();
         startForeground(2, notification);
     }
 

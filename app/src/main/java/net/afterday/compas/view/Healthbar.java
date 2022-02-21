@@ -12,12 +12,14 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import android.view.accessibility.AccessibilityManager;
+
+import androidx.annotation.Nullable;
+
 import net.afterday.compas.FeatureOn;
 import net.afterday.compas.R;
 import net.afterday.compas.util.Convert;

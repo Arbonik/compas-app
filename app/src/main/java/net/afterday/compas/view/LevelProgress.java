@@ -8,11 +8,12 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+
+import androidx.annotation.Nullable;
 
 import net.afterday.compas.R;
 import net.afterday.compas.core.inventory.items.Events.ItemAdded;

@@ -1,10 +1,8 @@
 package net.afterday.compas.engine.influences.WifiInfluences;
 
 import android.net.wifi.ScanResult;
-import android.support.v4.util.Pair;
 
 import net.afterday.compas.core.influences.Influence;
-import net.afterday.compas.core.influences.Influences;
 import net.afterday.compas.core.influences.InfluencesPack;
 import net.afterday.compas.engine.influences.InflPack;
 

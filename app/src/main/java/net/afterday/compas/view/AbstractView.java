@@ -3,9 +3,10 @@ package net.afterday.compas.view;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.annotation.Nullable;
 
 public abstract class AbstractView extends View
 {

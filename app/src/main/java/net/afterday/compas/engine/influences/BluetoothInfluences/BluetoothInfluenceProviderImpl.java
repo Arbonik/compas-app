@@ -1,6 +1,6 @@
 package net.afterday.compas.engine.influences.BluetoothInfluences;
 
-import android.support.v4.util.Pair;
+import android.util.Pair;
 
 import net.afterday.compas.core.influences.Influence;
 import net.afterday.compas.core.influences.InfluencesPack;

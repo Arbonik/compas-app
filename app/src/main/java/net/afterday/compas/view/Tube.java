@@ -10,13 +10,14 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.RectF;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 //import net.afterday.compas.Player;
+
+import androidx.annotation.Nullable;
 
 import net.afterday.compas.R;
 import net.afterday.compas.core.player.Player;

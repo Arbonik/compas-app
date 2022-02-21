@@ -1,31 +1,22 @@
 package net.afterday.compas;
 
-import android.Manifest;
 import android.app.Application;
+import android.app.NotificationManager;
+import android.app.NotificationChannel;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
-//import com.crashlytics.android.Crashlytics;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import io.fabric.sdk.android.Fabric;
 import net.afterday.compas.core.Game;
 import net.afterday.compas.core.gameState.Frame;
-import net.afterday.compas.core.inventory.items.Events.ItemAdded;
-import net.afterday.compas.core.player.Player;
 import net.afterday.compas.core.serialization.Serializer;
 import net.afterday.compas.core.userActions.UserActionsPack;
 import net.afterday.compas.engine.Engine;
-import net.afterday.compas.engine.events.ItemEventsBus;
-import net.afterday.compas.logging.Logger;
 import net.afterday.compas.sensors.Battery.Battery;
-import net.afterday.compas.sensors.WiFi.WifiImpl;
 import net.afterday.compas.settings.Settings;
 import net.afterday.compas.util.Fonts;
-import net.afterday.compas.view.SmallLogListAdapter;
 
 import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
 
 
@@ -46,9 +37,22 @@ public class StalkerApp extends Application
     private Fonts fonts;
     private Serializer serializer;
     private Settings settings;
+    private String ChannelID = "CHANNELID";
+
     @Override
     public void onCreate()
     {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            String name = "CHANNEL_NAME";
+            String descriptionText = "CHANNEL DESCRIPTION";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(ChannelID, name, importance);
+            channel.setDescription(descriptionText);
+
+            NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(channel);
+        }
         FeatureOn.setContext(this.getBaseContext());
         super.onCreate();
 
@@ -76,7 +80,11 @@ public class StalkerApp extends Application
 
         settings = Settings.instance(this);
         fonts = Fonts.instance(this.getAssets());
-        startService(new Intent(StalkerApp.this, LocalMainService.class));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            this.startForegroundService(new Intent(this, LocalMainService.class));
+        } else {
+            this.startService(new Intent(this, LocalMainService.class));
+        }
 //        Fabric.with(this, new Crashlytics());
 //        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
 //            @Override

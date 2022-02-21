@@ -2,9 +2,10 @@ package net.afterday.compas.effects;
 
 import android.animation.ValueAnimator;
 import android.os.HandlerThread;
-import android.support.v4.util.Pair;
+import android.util.Pair;
 import android.view.animation.LinearInterpolator;
 
+import net.afterday.compas.LocalMainService;
 import net.afterday.compas.R;
 import net.afterday.compas.core.gameState.Frame;
 import net.afterday.compas.core.player.Impacts;
@@ -13,11 +14,9 @@ import net.afterday.compas.core.player.PlayerProps;
 import net.afterday.compas.devices.DeviceProvider;
 import net.afterday.compas.devices.sound.Sound;
 import net.afterday.compas.devices.vibro.Vibro;
-import net.afterday.compas.devices.vibro.VibroImpl;
 import net.afterday.compas.engine.Engine;
 import net.afterday.compas.engine.events.EmissionEventBus;
 import net.afterday.compas.engine.events.ItemEventsBus;
-import net.afterday.compas.LocalMainService;
 import net.afterday.compas.engine.events.PlayerEventBus;
 
 import java.util.Timer;

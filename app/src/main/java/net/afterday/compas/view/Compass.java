@@ -12,11 +12,12 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
+
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+
+import androidx.annotation.Nullable;
 
 import net.afterday.compas.R;
 import net.afterday.compas.settings.Constants;

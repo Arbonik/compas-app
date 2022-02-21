@@ -3,8 +3,9 @@ package net.afterday.compas;
 import android.app.Notification;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.view.accessibility.AccessibilityManager;
+
+import androidx.annotation.RequiresApi;
 
 import java.lang.reflect.Method;
 
